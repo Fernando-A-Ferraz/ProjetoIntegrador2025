@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto; /* Permite rolagem se o conteúdo ultrapassar a tela */
+    z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 20px auto; /* Margem superior ajustada para não colar no topo */
+    padding: 20px;
+    width: 70%;
+    max-width: 500px;
+    max-height: 90vh; /* Limita a altura máxima para caber na tela */
+    overflow-y: auto; /* Adiciona rolagem interna se o conteúdo for muito grande */
+    position: relative;
+}
+
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}

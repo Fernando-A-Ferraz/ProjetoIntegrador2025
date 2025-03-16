@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Produtos</h1>
+    <button onclick="openModal('produto-modal')">Adicionar Produto</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Fornecedor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.id }}</td>
+                    <td>{{ produto.descricao }}</td>
+                    <td>{{ produto.quantidade }}</td>
+                    <td>{{ produto.fornecedor.nome_fantasia }}</td>
+                    <td>
+                        <button onclick="editProduto({{ produto.id }})">Editar</button>
+                        <button onclick="deleteProduto({{ produto.id }})">Excluir</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal para cadastro de produto -->
+    <div id="produto-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('produto-modal')">×</span>
+            <h2>Cadastrar Produto</h2>
+            <form method="POST">
+                <input type="text" name="descricao" placeholder="Descrição" required><br>
+                <input type="number" name="quantidade" placeholder="Quantidade" required><br>
+                <select name="fornecedor_id" required>
+                    <option value="">Selecione um fornecedor</option>
+                    {% for fornecedor in fornecedores %}
+                        <option value="{{ fornecedor.id }}">{{ fornecedor.nome_fantasia }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para edição de produto -->
+    <div id="edit-produto-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('edit-produto-modal')">×</span>
+            <h2>Editar Produto</h2>
+            <form method="POST">
+                <input type="hidden" id="edit-produto-id" name="id">
+                <input type="text" id="edit-descricao" name="descricao" placeholder="Descrição" required><br>
+                <input type="number" id="edit-quantidade" name="quantidade" placeholder="Quantidade" required><br>
+                <select id="edit-fornecedor_id" name="fornecedor_id" required>
+                    <option value="">Selecione um fornecedor</option>
+                    {% for fornecedor in fornecedores %}
+                        <option value="{{ fornecedor.id }}">{{ fornecedor.nome_fantasia }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit">Atualizar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

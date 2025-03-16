@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Fornecedores</h1>
+    <button onclick="openModal('fornecedor-modal')">Adicionar Fornecedor</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome Fantasia</th>
+                <th>Telefone</th>
+                <th>Representante</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fornecedor in fornecedores %}
+                <tr>
+                    <td>{{ fornecedor.id }}</td>
+                    <td>{{ fornecedor.nome_fantasia }}</td>
+                    <td>{{ fornecedor.telefone }}</td>
+                    <td>{{ fornecedor.representante }}</td>
+                    <td>
+                        <button onclick="editFornecedor({{ fornecedor.id }})">Editar</button>
+                        <button onclick="deleteFornecedor({{ fornecedor.id }})">Excluir</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal para cadastro de fornecedor -->
+    <div id="fornecedor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('fornecedor-modal')">×</span>
+            <h2>Cadastrar Fornecedor</h2>
+            <form method="POST">
+                <input type="text" id="cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required><br>
+                <input type="text" name="razao_social" placeholder="Razão Social" required><br>
+                <input type="text" name="nome_fantasia" placeholder="Nome Fantasia" required><br>
+                <input type="text" name="rua" placeholder="Rua" required><br>
+                <input type="text" name="numero" placeholder="Número" required><br>
+                <input type="text" name="complemento" placeholder="Complemento"><br>
+                <input type="text" id="cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required><br>
+                <input type="text" name="bairro" placeholder="Bairro" required><br>
+                <input type="text" name="cidade" placeholder="Cidade" required><br>
+                <input type="text" name="estado" placeholder="Estado" required><br>
+                <input type="text" id="telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required><br>
+                <input type="text" name="representante" placeholder="Representante" required><br>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para edição de fornecedor -->
+    <div id="edit-fornecedor-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('edit-fornecedor-modal')">×</span>
+            <h2>Editar Fornecedor</h2>
+            <form method="POST">
+                <input type="hidden" id="edit-fornecedor-id" name="id">
+                <input type="text" id="edit-cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required><br>
+                <input type="text" id="edit-razao_social" name="razao_social" placeholder="Razão Social" required><br>
+                <input type="text" id="edit-nome_fantasia" name="nome_fantasia" placeholder="Nome Fantasia" required><br>
+                <input type="text" id="edit-rua" name="rua" placeholder="Rua" required><br>
+                <input type="text" id="edit-numero" name="numero" placeholder="Número" required><br>
+                <input type="text" id="edit-complemento" name="complemento" placeholder="Complemento"><br>
+                <input type="text" id="edit-cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required><br>
+                <input type="text" id="edit-bairro" name="bairro" placeholder="Bairro" required><br>
+                <input type="text" id="edit-cidade" name="cidade" placeholder="Cidade" required><br>
+                <input type="text" id="edit-estado" name="estado" placeholder="Estado" required><br>
+                <input type="text" id="edit-telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required><br>
+                <input type="text" id="edit-representante" name="representante" placeholder="Representante" required><br>
+                <button type="submit">Atualizar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

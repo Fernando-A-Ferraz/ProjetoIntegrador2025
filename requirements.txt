@@ -1,0 +1,5 @@
+Flask==2.3.2
+python-dotenv==1.0.0
+supabase==2.4.0
+httpx==0.25.2  # Ajustado para uma versão compatível
+gotrue==2.4.1
