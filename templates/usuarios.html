@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="my-4">Gerenciar Usuários</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <button class="btn btn-primary mb-3" onclick="openModal('usuario-modal')">Adicionar Usuário</button>
+    <div class="table-responsive">
+        <table class="table table-striped table-mobile-friendly">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuário</th>
+                    <th>Função</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td data-label="ID">{{ usuario.id }}</td>
+                        <td data-label="Usuário">{{ usuario.username }}</td>
+                        <td data-label="Função">{{ usuario.role }}</td>
+                        <td data-label="Ações">
+                            {% if usuario.username != 'admin' %}
+                            <button class="btn-edit" onclick="openChangePasswordModal('{{ usuario.id }}')">Alterar Senha</button>
+                                <button class="btn-delete" onclick="deleteUsuario('{{ usuario.id }}')">Excluir</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para cadastro de usuário -->
+    <div id="usuario-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('usuario-modal')">×</span>
+            <h2>Cadastrar Usuário</h2>
+            <form method="POST">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <input type="text" class="form-control" name="username" placeholder="Usuário" required>
+                    </div>
+                    <div class="col-12">
+                        <input type="password" class="form-control" name="password" placeholder="Senha" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para alterar senha -->
+    <div id="change-password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('change-password-modal')">×</span>
+            <h2>Alterar Senha</h2>
+            <form id="change-password-form">
+                <input type="hidden" id="change-password-id" name="id">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <input type="password" class="form-control" id="new-password" name="password" placeholder="Nova Senha" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

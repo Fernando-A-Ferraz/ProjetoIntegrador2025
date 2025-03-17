@@ -1,52 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Fornecedores</h1>
-    <button onclick="openModal('fornecedor-modal')">Adicionar Fornecedor</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Nome Fantasia</th>
-                <th>Telefone</th>
-                <th>Representante</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for fornecedor in fornecedores %}
+    <h1 class="my-4">Fornecedores</h1>
+    <button class="btn btn-primary mb-3" onclick="openModal('fornecedor-modal')">Adicionar Fornecedor</button>
+    <div class="table-responsive">
+        <table class="table table-striped table-mobile-friendly">
+            <thead>
                 <tr>
-                    <td>{{ fornecedor.id }}</td>
-                    <td>{{ fornecedor.nome_fantasia }}</td>
-                    <td>{{ fornecedor.telefone }}</td>
-                    <td>{{ fornecedor.representante }}</td>
-                    <td>
-                        <button onclick="editFornecedor({{ fornecedor.id }})">Editar</button>
-                        <button onclick="deleteFornecedor({{ fornecedor.id }})">Excluir</button>
-                    </td>
+                    <th>Código</th>
+                    <th>Nome Fantasia</th>
+                    <th>Telefone</th>
+                    <th>Representante</th>
+                    <th>Ações</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for fornecedor in fornecedores %}
+                    <tr>
+                        <td data-label="Código">{{ fornecedor.id }}</td>
+                        <td data-label="Nome Fantasia">{{ fornecedor.nome_fantasia }}</td>
+                        <td data-label="Telefone">{{ fornecedor.telefone }}</td>
+                        <td data-label="Representante">{{ fornecedor.representante }}</td>
+                        <td data-label="Ações">
+                            <button class="btn-edit" onclick="editFornecedor('{{ fornecedor.id }}')">Editar</button>
+                            <button class="btn-delete" onclick="deleteFornecedor('{{ fornecedor.id }}')">Excluir</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <!-- Modal para cadastro de fornecedor -->
     <div id="fornecedor-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('fornecedor-modal')">×</span>
             <h2>Cadastrar Fornecedor</h2>
-            <form method="POST">
-                <input type="text" id="cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required><br>
-                <input type="text" name="razao_social" placeholder="Razão Social" required><br>
-                <input type="text" name="nome_fantasia" placeholder="Nome Fantasia" required><br>
-                <input type="text" name="rua" placeholder="Rua" required><br>
-                <input type="text" name="numero" placeholder="Número" required><br>
-                <input type="text" name="complemento" placeholder="Complemento"><br>
-                <input type="text" id="cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required><br>
-                <input type="text" name="bairro" placeholder="Bairro" required><br>
-                <input type="text" name="cidade" placeholder="Cidade" required><br>
-                <input type="text" name="estado" placeholder="Estado" required><br>
-                <input type="text" id="telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required><br>
-                <input type="text" name="representante" placeholder="Representante" required><br>
-                <button type="submit">Cadastrar</button>
+            <form method="POST" class="row g-3">
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="razao_social" placeholder="Razão Social" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="nome_fantasia" placeholder="Nome Fantasia" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="rua" placeholder="Rua" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="numero" placeholder="Número" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="complemento" placeholder="Complemento"></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="bairro" placeholder="Bairro" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="cidade" placeholder="Cidade" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="estado" placeholder="Estado" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" name="representante" placeholder="Representante" required></div>
+                <div class="col-12"><button type="submit" class="btn btn-primary">Cadastrar</button></div>
             </form>
         </div>
     </div>
@@ -56,21 +58,21 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('edit-fornecedor-modal')">×</span>
             <h2>Editar Fornecedor</h2>
-            <form method="POST">
+            <form method="POST" class="row g-3">
                 <input type="hidden" id="edit-fornecedor-id" name="id">
-                <input type="text" id="edit-cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required><br>
-                <input type="text" id="edit-razao_social" name="razao_social" placeholder="Razão Social" required><br>
-                <input type="text" id="edit-nome_fantasia" name="nome_fantasia" placeholder="Nome Fantasia" required><br>
-                <input type="text" id="edit-rua" name="rua" placeholder="Rua" required><br>
-                <input type="text" id="edit-numero" name="numero" placeholder="Número" required><br>
-                <input type="text" id="edit-complemento" name="complemento" placeholder="Complemento"><br>
-                <input type="text" id="edit-cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required><br>
-                <input type="text" id="edit-bairro" name="bairro" placeholder="Bairro" required><br>
-                <input type="text" id="edit-cidade" name="cidade" placeholder="Cidade" required><br>
-                <input type="text" id="edit-estado" name="estado" placeholder="Estado" required><br>
-                <input type="text" id="edit-telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required><br>
-                <input type="text" id="edit-representante" name="representante" placeholder="Representante" required><br>
-                <button type="submit">Atualizar</button>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-cnpj-fornecedor" name="cnpj" placeholder="CNPJ" maxlength="18" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-razao_social" name="razao_social" placeholder="Razão Social" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-nome_fantasia" name="nome_fantasia" placeholder="Nome Fantasia" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-rua" name="rua" placeholder="Rua" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-numero" name="numero" placeholder="Número" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-complemento" name="complemento" placeholder="Complemento"></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-cep-fornecedor" name="cep" placeholder="CEP" maxlength="9" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-bairro" name="bairro" placeholder="Bairro" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-cidade" name="cidade" placeholder="Cidade" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-estado" name="estado" placeholder="Estado" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-telefone-fornecedor" name="telefone" placeholder="Telefone" maxlength="15" required></div>
+                <div class="col-12 col-md-6"><input type="text" class="form-control" id="edit-representante" name="representante" placeholder="Representante" required></div>
+                <div class="col-12"><button type="submit" class="btn btn-primary">Atualizar</button></div>
             </form>
         </div>
     </div>

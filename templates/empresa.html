@@ -1,18 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Dados da Empresa</h1>
-    <form method="POST" id="empresa-form">
-        <input type="text" id="cnpj-empresa" name="cnpj" placeholder="CNPJ" maxlength="18" value="{{ empresa.cnpj if empresa else '' }}" readonly required><br>
-        <input type="text" id="razao_social" name="razao_social" placeholder="Razão Social" value="{{ empresa.razao_social if empresa else '' }}" readonly required><br>
-        <input type="text" id="nome_fantasia" name="nome_fantasia" placeholder="Nome Fantasia" value="{{ empresa.nome_fantasia if empresa else '' }}" readonly required><br>
-        <input type="text" id="rua" name="rua" placeholder="Rua" value="{{ empresa.rua if empresa else '' }}" readonly required><br>
-        <input type="text" id="numero" name="numero" placeholder="Número" value="{{ empresa.numero if empresa else '' }}" readonly required><br>
-        <input type="text" id="complemento" name="complemento" placeholder="Complemento" value="{{ empresa.complemento if empresa else '' }}" readonly><br>
-        <input type="text" id="cep-empresa" name="cep" placeholder="CEP" maxlength="9" value="{{ empresa.cep if empresa else '' }}" readonly required><br>
-        <input type="text" id="bairro" name="bairro" placeholder="Bairro" value="{{ empresa.bairro if empresa else '' }}" readonly required><br>
-        <input type="text" id="cidade" name="cidade" placeholder="Cidade" value="{{ empresa.cidade if empresa else '' }}" readonly required><br>
-        <input type="text" id="estado" name="estado" placeholder="Estado" value="{{ empresa.estado if empresa else '' }}" readonly required><br>
-        <input type="text" id="telefone-empresa" name="telefone" placeholder="Telefone" maxlength="15" value="{{ empresa.telefone if empresa else '' }}" readonly required><br>
-        <button type="button" id="edit-save-button">{{ 'Editar' if empresa else 'Cadastrar' }}</button>
+    <h1 class="my-4">Dados da Empresa</h1>
+    <form method="POST" id="empresa-form" class="row g-3">
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="cnpj-empresa" name="cnpj" placeholder="CNPJ" maxlength="18" value="{{ empresa.cnpj if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="razao_social" name="razao_social" placeholder="Razão Social" value="{{ empresa.razao_social if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia" placeholder="Nome Fantasia" value="{{ empresa.nome_fantasia if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua" value="{{ empresa.rua if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="numero" name="numero" placeholder="Número" value="{{ empresa.numero if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="complemento" name="complemento" placeholder="Complemento" value="{{ empresa.complemento if empresa else '' }}" readonly>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="cep-empresa" name="cep" placeholder="CEP" maxlength="9" value="{{ empresa.cep if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro" value="{{ empresa.bairro if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade" value="{{ empresa.cidade if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado" value="{{ empresa.estado if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12 col-md-6">
+            <input type="text" class="form-control" id="telefone-empresa" name="telefone" placeholder="Telefone" maxlength="15" value="{{ empresa.telefone if empresa else '' }}" readonly required>
+        </div>
+        <div class="col-12">
+            <button type="button" id="edit-save-button" class="btn btn-primary">{{ 'Editar' if empresa else 'Cadastrar' }}</button>
+        </div>
     </form>
 {% endblock %}
