@@ -1,5 +1,8 @@
-Flask==2.3.2
+Flask==2.2.5
+Werkzeug==2.2.3
 python-dotenv==1.0.0
 supabase==2.4.0
-httpx==0.25.2  # Ajustado para uma versão compatível
+httpx==0.25.2
 gotrue==2.4.1
+pydantic==2.8.2  # Versão estável compatível
+pydantic-core==2.20.1  # Versão correspondente ao pydantic 2.8.2
