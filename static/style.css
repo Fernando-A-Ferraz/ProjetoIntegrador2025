@@ -1,74 +1,9 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    background-color: #f8f9fa;
 }
 
-.container {
-    display: flex;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #f4f4f4;
-    padding: 20px;
-    height: 100vh;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.content {
-    flex-grow: 1;
-    padding: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    margin: 2px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    box-sizing: border-box;
-}
-
+/* Estilo dos Modais */
 .modal {
     display: none;
     position: fixed;
@@ -76,24 +11,137 @@ input, select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    overflow-y: auto; /* Permite rolagem se o conteúdo ultrapassar a tela */
-    z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
 }
 
 .modal-content {
     background-color: white;
-    margin: 20px auto; /* Margem superior ajustada para não colar no topo */
+    margin: 10% auto;
     padding: 20px;
-    width: 70%;
-    max-width: 500px;
-    max-height: 90vh; /* Limita a altura máxima para caber na tela */
-    overflow-y: auto; /* Adiciona rolagem interna se o conteúdo for muito grande */
-    position: relative;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close {
+    color: #aaa;
     float: right;
-    font-size: 24px;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Estilo dos Botões */
+.btn-edit, .btn-delete {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0.3rem;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit {
+    background-color: #ffc107; /* Amarelo do Bootstrap warning */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Vermelho do Bootstrap danger */
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Estilo da Tabela para Mobile */
+.table-mobile-friendly {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-mobile-friendly th, .table-mobile-friendly td {
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.table-mobile-friendly thead {
+    background-color: #f1f1f1;
+}
+
+/* Ajustes para Mobile */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+    }
+
+    /* Tabela em Mobile: Transformar em Blocos */
+    .table-mobile-friendly thead {
+        display: none;
+    }
+
+    .table-mobile-friendly tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table-mobile-friendly tbody td {
+        display: block;
+        text-align: left;
+        font-size: 0.95rem;
+        padding: 0.5rem;
+        border: none;
+        position: relative;
+    }
+
+    .table-mobile-friendly tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 40%;
+        padding-right: 1rem;
+        color: #555;
+    }
+
+    .table-mobile-friendly tbody td[data-label="Ações"] {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+
+    /* Botões em Mobile */
+    .btn-edit, .btn-delete {
+        width: 48%;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+        margin: 0.1rem 1%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .table-responsive {
+        font-size: 0.95rem;
+    }
 }
