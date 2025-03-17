@@ -1,14 +1,94 @@
+// Funções para abrir e fechar modais
 function openModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+    } else {
+        console.error(`Modal com ID ${modalId} não encontrado`);
+    }
 }
 
 function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    } else {
+        console.error(`Modal com ID ${modalId} não encontrado`);
+    }
 }
 
-function deleteFornecedor(id) {
-    if (confirm('Tem certeza que deseja excluir este fornecedor?')) {
-        fetch(`/fornecedores/delete/${id}`, { method: 'POST' })
+// Manipular o botão Editar/Salvar da tela de empresa
+document.addEventListener('DOMContentLoaded', function() {
+    const editSaveButton = document.getElementById('edit-save-button');
+    const form = document.getElementById('empresa-form');
+    let isEditing = false;
+
+    if (editSaveButton) {
+        editSaveButton.addEventListener('click', function() {
+            if (!isEditing) {
+                // Modo Edição
+                const inputs = form.querySelectorAll('input[readonly]');
+                inputs.forEach(input => input.removeAttribute('readonly'));
+                editSaveButton.textContent = 'Salvar';
+                editSaveButton.classList.remove('btn-primary');
+                editSaveButton.classList.add('btn-success');
+                isEditing = true;
+            } else {
+                // Modo Salvar
+                form.submit();
+            }
+        });
+    }
+
+    // Manipular o formulário de alteração de senha
+    const changePasswordForm = document.getElementById('change-password-form');
+    if (changePasswordForm) {
+        changePasswordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('change-password-id').value;
+            const password = document.getElementById('new-password').value;
+            fetch(`/usuarios/update/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'password': password
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert(data.success);
+                    closeModal('change-password-modal');
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao alterar senha:', error);
+                alert('Ocorreu um erro ao alterar a senha. Verifique o console para detalhes.');
+            });
+        });
+    }
+});
+
+// Função para abrir o modal de alteração de senha
+function openChangePasswordModal(id) {
+    document.getElementById('change-password-id').value = id;
+    openModal('change-password-modal');
+}
+
+// Função para excluir usuário
+function deleteUsuario(id) {
+    if (confirm('Tem certeza que deseja excluir este usuário?')) {
+        fetch(`/usuarios/delete/${id}`, { method: 'POST' })
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -16,27 +96,18 @@ function deleteFornecedor(id) {
                 } else {
                     location.reload();
                 }
-            });
+            })
+            .catch(error => console.error('Erro ao excluir usuário:', error));
     }
 }
 
-function deleteProduto(id) {
-    if (confirm('Tem certeza que deseja excluir este produto?')) {
-        fetch(`/produtos/delete/${id}`, { method: 'POST' })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    location.reload();
-                }
-            });
-    }
-}
-
+// Editar Fornecedor
 function editFornecedor(id) {
     fetch(`/fornecedores/edit/${id}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao buscar fornecedor');
+            return response.json();
+        })
         .then(data => {
             document.getElementById('edit-fornecedor-id').value = data.id;
             document.getElementById('edit-cnpj-fornecedor').value = data.cnpj;
@@ -52,88 +123,81 @@ function editFornecedor(id) {
             document.getElementById('edit-telefone-fornecedor').value = data.telefone;
             document.getElementById('edit-representante').value = data.representante;
             openModal('edit-fornecedor-modal');
-        });
+        })
+        .catch(error => console.error('Erro ao editar fornecedor:', error));
 }
 
+// Excluir Fornecedor
+function deleteFornecedor(id) {
+    if (confirm('Tem certeza que deseja excluir este fornecedor?')) {
+        fetch(`/fornecedores/delete/${id}`, { method: 'POST' })
+            .then(response => {
+                return response.json().then(data => ({
+                    status: response.status,
+                    data: data
+                }));
+            })
+            .then(result => {
+                if (result.status !== 200) {
+                    throw new Error(result.data.error || 'Erro desconhecido ao excluir fornecedor');
+                }
+                alert(result.data.success);
+                location.reload();
+            })
+            .catch(error => {
+                alert(error.message);
+                console.error('Erro ao excluir fornecedor:', error);
+            });
+    }
+}
+
+// Editar Produto
 function editProduto(id) {
     fetch(`/produtos/edit/${id}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao buscar produto');
+            return response.json();
+        })
         .then(data => {
             document.getElementById('edit-produto-id').value = data.id;
             document.getElementById('edit-descricao').value = data.descricao;
             document.getElementById('edit-quantidade').value = data.quantidade;
             document.getElementById('edit-fornecedor_id').value = data.fornecedor_id;
             openModal('edit-produto-modal');
-        });
+        })
+        .catch(error => console.error('Erro ao editar produto:', error));
 }
 
-function maskCNPJ(input) {
-    let value = input.value.replace(/\D/g, '');
-    if (value.length > 14) value = value.slice(0, 14);
-    value = value.replace(/^(\d{2})(\d)/, '$1.$2');
-    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-    value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
-    value = value.replace(/(\d{4})(\d)/, '$1-$2');
-    input.value = value;
-}
-
-function maskCEP(input) {
-    let value = input.value.replace(/\D/g, '');
-    if (value.length > 8) value = value.slice(0, 8);
-    value = value.replace(/^(\d{5})(\d)/, '$1-$2');
-    input.value = value;
-}
-
-function maskTelefone(input) {
-    let value = input.value.replace(/\D/g, '');
-    if (value.length > 11) value = value.slice(0, 11);
-    value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-    value = value.replace(/(\d{5})(\d)/, '$1-$2');
-    input.value = value;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // Máscaras para empresa
-    const cnpjEmpresa = document.getElementById('cnpj-empresa');
-    const cepEmpresa = document.getElementById('cep-empresa');
-    const telefoneEmpresa = document.getElementById('telefone-empresa');
-    if (cnpjEmpresa) cnpjEmpresa.addEventListener('input', () => maskCNPJ(cnpjEmpresa));
-    if (cepEmpresa) cepEmpresa.addEventListener('input', () => maskCEP(cepEmpresa));
-    if (telefoneEmpresa) telefoneEmpresa.addEventListener('input', () => maskTelefone(telefoneEmpresa));
-
-    // Máscaras para fornecedor (cadastro)
-    const cnpjFornecedor = document.getElementById('cnpj-fornecedor');
-    const cepFornecedor = document.getElementById('cep-fornecedor');
-    const telefoneFornecedor = document.getElementById('telefone-fornecedor');
-    if (cnpjFornecedor) cnpjFornecedor.addEventListener('input', () => maskCNPJ(cnpjFornecedor));
-    if (cepFornecedor) cepFornecedor.addEventListener('input', () => maskCEP(cepFornecedor));
-    if (telefoneFornecedor) telefoneFornecedor.addEventListener('input', () => maskTelefone(telefoneFornecedor));
-
-    // Máscaras para fornecedor (edição)
-    const editCnpjFornecedor = document.getElementById('edit-cnpj-fornecedor');
-    const editCepFornecedor = document.getElementById('edit-cep-fornecedor');
-    const editTelefoneFornecedor = document.getElementById('edit-telefone-fornecedor');
-    if (editCnpjFornecedor) editCnpjFornecedor.addEventListener('input', () => maskCNPJ(editCnpjFornecedor));
-    if (editCepFornecedor) editCepFornecedor.addEventListener('input', () => maskCEP(editCepFornecedor));
-    if (editTelefoneFornecedor) editTelefoneFornecedor.addEventListener('input', () => maskTelefone(editTelefoneFornecedor));
-
-    // Controle do botão Editar/Salvar na tela de empresa
-    const editSaveButton = document.getElementById('edit-save-button');
-    const empresaForm = document.getElementById('empresa-form');
-    if (editSaveButton && empresaForm) {
-        editSaveButton.addEventListener('click', () => {
-            if (editSaveButton.textContent === 'Editar') {
-                // Tornar campos editáveis
-                empresaForm.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
-                editSaveButton.textContent = 'Salvar';
-            } else if (editSaveButton.textContent === 'Salvar') {
-                // Enviar o formulário
-                empresaForm.submit();
-            } else if (editSaveButton.textContent === 'Cadastrar') {
-                // Permitir edição para cadastro inicial
-                empresaForm.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
-                editSaveButton.textContent = 'Salvar';
-            }
-        });
+// Excluir Produto
+function deleteProduto(id) {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+        fetch(`/produtos/delete/${id}`, { method: 'POST' })
+            .then(response => {
+                return response.json().then(data => ({
+                    status: response.status,
+                    data: data
+                }));
+            })
+            .then(result => {
+                if (result.status !== 200) {
+                    throw new Error(result.data.error || 'Erro desconhecido ao excluir produto');
+                }
+                alert(result.data.success);
+                location.reload();
+            })
+            .catch(error => {
+                alert(error.message);
+                console.error('Erro ao excluir produto:', error);
+            });
     }
-});
+}
+
+// Fechar modais ao clicar fora
+window.onclick = function(event) {
+    const modals = document.getElementsByClassName('modal');
+    for (let modal of modals) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+};
