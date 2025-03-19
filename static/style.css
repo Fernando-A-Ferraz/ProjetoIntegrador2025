@@ -1,147 +1,169 @@
+/* Estilos Gerais */
+/* Define a aparência básica de toda a página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    font-family: Arial, sans-serif; /* Define a fonte como Arial ou uma fonte sem serifa similar */
+    background-color: #f8f9fa; /* Define a cor de fundo da página como um cinza claro */
 }
 
 /* Estilo dos Modais */
+/* Um modal é uma janela pop-up que aparece sobre o conteúdo da página */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    overflow-y: auto;
+    display: none; /* Esconde o modal por padrão, ele só aparece quando ativado */
+    position: fixed; /* Faz o modal ficar fixo na tela, sem rolar com a página */
+    top: 0; /* Posiciona o modal no topo da tela */
+    left: 0; /* Posiciona o modal à esquerda da tela */
+    width: 100%; /* Faz o modal ocupar toda a largura da tela */
+    height: 100%; /* Faz o modal ocupar toda a altura da tela */
+    background-color: rgba(0, 0, 0, 0.5); /* Adiciona um fundo preto semi-transparente para destacar o modal */
+    z-index: 1000; /* Garante que o modal fique acima de outros elementos da página */
+    overflow-y: auto; /* Permite rolagem vertical se o conteúdo do modal for muito grande */
 }
 
+/* Estilo do conteúdo dentro do modal */
 .modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white; /* Define o fundo do conteúdo do modal como branco */
+    margin: 10% auto; /* Centraliza o modal verticalmente e horizontalmente com uma margem de 10% no topo */
+    padding: 20px; /* Adiciona um espaçamento interno de 20px */
+    border-radius: 8px; /* Arredonda as bordas do modal para um visual mais suave */
+    width: 90%; /* Define a largura como 90% da tela */
+    max-width: 600px; /* Limita a largura máxima a 600px em telas grandes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra leve para dar profundidade */
 }
 
+/* Estilo do botão de fechar o modal */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+    color: #aaa; /* Define a cor do botão como cinza claro */
+    float: right; /* Posiciona o botão à direita do modal */
+    font-size: 28px; /* Aumenta o tamanho da fonte para facilitar a visualização */
+    font-weight: bold; /* Torna o texto do botão em negrito */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
 }
 
+/* Muda a cor do botão de fechar ao passar o mouse */
 .close:hover {
-    color: #000;
+    color: #000; /* Torna a cor preta quando o mouse passa por cima */
 }
 
 /* Estilo dos Botões */
+/* Define a aparência dos botões de edição e exclusão */
 .btn-edit, .btn-delete {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 6px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 0.3rem;
-    display: inline-block;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.6rem 1.2rem; /* Adiciona espaçamento interno: 0.6rem vertical, 1.2rem horizontal */
+    font-size: 1rem; /* Define o tamanho da fonte como 1rem (tamanho padrão) */
+    font-weight: 500; /* Torna a fonte um pouco mais grossa */
+    border-radius: 6px; /* Arredonda as bordas dos botões */
+    border: none; /* Remove a borda padrão dos botões */
+    color: white; /* Define o texto dos botões como branco */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    transition: all 0.2s ease; /* Adiciona uma transição suave de 0.2 segundos para mudanças */
+    margin: 0.3rem; /* Adiciona uma margem externa de 0.3rem */
+    display: inline-block; /* Permite que os botões fiquem lado a lado */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve para profundidade */
 }
 
+/* Define a cor do botão de edição */
 .btn-edit {
-    background-color: #ffc107; /* Amarelo do Bootstrap warning */
+    background-color: #ffc107; /* Cor amarela (baseada no Bootstrap warning) */
 }
 
+/* Define a cor do botão de exclusão */
 .btn-delete {
-    background-color: #dc3545; /* Vermelho do Bootstrap danger */
+    background-color: #dc3545; /* Cor vermelha (baseada no Bootstrap danger) */
 }
 
+/* Efeito ao passar o mouse sobre o botão de edição */
 .btn-edit:hover {
-    background-color: #e0a800;
-    transform: translateY(-2px);
+    background-color: #e0a800; /* Escurece a cor amarela */
+    transform: translateY(-2px); /* Move o botão 2px para cima para um efeito de elevação */
 }
 
+/* Efeito ao passar o mouse sobre o botão de exclusão */
 .btn-delete:hover {
-    background-color: #c82333;
-    transform: translateY(-2px);
+    background-color: #c82333; /* Escurece a cor vermelha */
+    transform: translateY(-2px); /* Move o botão 2px para cima para um efeito de elevação */
 }
 
 /* Estilo da Tabela para Mobile */
+/* Define a aparência de uma tabela que funciona bem em dispositivos móveis */
 .table-mobile-friendly {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* Faz a tabela ocupar toda a largura disponível */
+    border-collapse: collapse; /* Remove o espaçamento entre as bordas das células */
 }
 
+/* Estilo das células do cabeçalho e do corpo da tabela */
 .table-mobile-friendly th, .table-mobile-friendly td {
-    padding: 0.75rem;
-    text-align: left;
+    padding: 0.75rem; /* Adiciona um espaçamento interno de 0.75rem */
+    text-align: left; /* Alinha o texto à esquerda */
 }
 
+/* Estilo do cabeçalho da tabela */
 .table-mobile-friendly thead {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Define um fundo cinza claro para destacar o cabeçalho */
 }
 
 /* Ajustes para Mobile */
+/* Aplica estilos específicos quando a tela tem largura máxima de 576px (típico de smartphones) */
 @media (max-width: 576px) {
+    /* Reduz o tamanho do título h1 em telas pequenas */
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.5rem; /* Define o tamanho da fonte como 1.5rem */
     }
 
+    /* Ajusta o conteúdo do modal para telas menores */
     .modal-content {
-        margin: 5% auto;
-        width: 95%;
+        margin: 5% auto; /* Reduz a margem superior para 5% */
+        width: 95%; /* Aumenta a largura para 95% da tela */
     }
 
-    /* Tabela em Mobile: Transformar em Blocos */
+    /* Transforma a tabela em blocos para melhor visualização em mobile */
     .table-mobile-friendly thead {
-        display: none;
+        display: none; /* Esconde o cabeçalho da tabela em telas pequenas */
     }
 
+    /* Faz cada linha da tabela se comportar como um bloco */
     .table-mobile-friendly tbody tr {
-        display: block;
-        margin-bottom: 1rem;
-        border-bottom: 2px solid #dee2e6;
+        display: block; /* Exibe cada linha como um bloco separado */
+        margin-bottom: 1rem; /* Adiciona uma margem inferior de 1rem entre as linhas */
+        border-bottom: 2px solid #dee2e6; /* Adiciona uma borda inferior para separar as linhas */
     }
 
+    /* Faz cada célula da tabela se comportar como um bloco */
     .table-mobile-friendly tbody td {
-        display: block;
-        text-align: left;
-        font-size: 0.95rem;
-        padding: 0.5rem;
-        border: none;
-        position: relative;
+        display: block; /* Exibe cada célula como um bloco */
+        text-align: left; /* Alinha o texto à esquerda */
+        font-size: 0.95rem; /* Reduz ligeiramente o tamanho da fonte */
+        padding: 0.5rem; /* Reduz o espaçamento interno */
+        border: none; /* Remove as bordas das células */
+        position: relative; /* Permite posicionamento relativo para elementos adicionais */
     }
 
+    /* Adiciona o rótulo da coluna antes do conteúdo da célula */
     .table-mobile-friendly tbody td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        display: inline-block;
-        width: 40%;
-        padding-right: 1rem;
-        color: #555;
+        content: attr(data-label); /* Usa o valor do atributo 'data-label' como texto */
+        font-weight: bold; /* Torna o rótulo em negrito */
+        display: inline-block; /* Exibe o rótulo ao lado do conteúdo */
+        width: 40%; /* Define a largura do rótulo como 40% */
+        padding-right: 1rem; /* Adiciona um espaçamento à direita do rótulo */
+        color: #555; /* Define a cor do rótulo como cinza escuro */
     }
 
+    /* Ajusta a célula de ações para exibir botões lado a lado */
     .table-mobile-friendly tbody td[data-label="Ações"] {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
+        display: flex; /* Usa flexbox para alinhar os botões */
+        justify-content: space-between; /* Espaça os botões igualmente */
+        padding: 0.5rem 0; /* Define o espaçamento vertical */
     }
 
-    /* Botões em Mobile */
+    /* Ajusta os botões para telas pequenas */
     .btn-edit, .btn-delete {
-        width: 48%;
-        padding: 0.5rem 1rem;
-        font-size: 0.95rem;
-        margin: 0.1rem 1%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        width: 48%; /* Cada botão ocupa 48% da largura disponível */
+        padding: 0.5rem 1rem; /* Reduz o espaçamento interno */
+        font-size: 0.95rem; /* Reduz ligeiramente o tamanho da fonte */
+        margin: 0.1rem 1%; /* Ajusta as margens */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Aumenta ligeiramente a sombra */
     }
 
+    /* Ajusta o tamanho da fonte da tabela responsiva */
     .table-responsive {
-        font-size: 0.95rem;
+        font-size: 0.95rem; /* Reduz o tamanho da fonte para melhor ajuste */
     }
 }
