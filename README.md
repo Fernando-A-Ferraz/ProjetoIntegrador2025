@@ -2,6 +2,8 @@
 
 Olá! Bem-vinda ao **ProjetoIntegrador2025**! Este é um sistema web que ajuda a gerenciar dados de uma empresa, fornecedores, produtos e usuários. Este guia foi feito para você, que está começando e nunca programou antes. Vou te guiar passo a passo para configurar tudo no seu computador com Windows. Vamos lá com calma!
 
+Fizemos este vídeo de apoio, completo com todos os passos do Readme [aqui](https://www.youtube.com/watch?v=Z6rDTtHyefU).
+
 ## O que você precisa
 - Um computador com **Windows** (qualquer versão recente, como Windows 10 ou 11).
 - **Conexão com a internet** (para baixar ferramentas e o projeto).
