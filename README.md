@@ -199,3 +199,32 @@ python app.py
 ## Passo 8: Parar o Projeto
 
 - Quando quiser parar, volte ao terminal e pressione Ctrl + C. Isso fechará o servidor.
+
+
+Este projeto contém casos de teste automatizados utilizando o Cypress. Os arquivos do Cypress não foram versionados no GitHub para reduzir o tamanho do repositório, mas você pode recriá-los localmente seguindo os passos abaixo.
+
+## Configuração do Ambiente de Testes
+
+Para recriar o ambiente de testes com Cypress, siga os passos abaixo dentro da pasta `Teste_em_Cypress` no terminal do VS Code:
+
+1 - **Criar projeto** - `npm init -y`  
+   *(Nota: Se o `package.json` já estiver presente, você pode pular este passo.)*
+
+2 - **Instalar o Cypress** - `npm install cypress`  
+   Isso instalará o Cypress e criará a estrutura de pastas padrão, como `cypress/e2e`.
+
+3 - **Iniciar o Cypress para configurar** - `npx cypress open`  
+   Ao executar este comando, o Cypress abrirá sua interface gráfica, onde você pode rodar os testes existentes ou criar novos.
+
+## Casos de Teste Existentes
+
+Os casos de teste já criados estão localizados na pasta `cypress/e2e` e incluem:  
+- `fornecedores.cy.js`: Testes relacionados a fornecedores.  
+- `login-cy.js`: Testes relacionados ao login.
+
+Para rodar os testes, certifique-se de que os arquivos de teste estão na pasta `cypress/e2e` e use o comando `npx cypress open` para abrir a interface do Cypress, ou `npx cypress run` para rodar os testes em modo headless (sem interface gráfica).
+
+## Observações
+
+- Certifique-se de ter o Node.js instalado antes de começar.
+- O arquivo `cypress.config.js` contém as configurações do Cypress. Se precisar ajustar algo (como a URL base ou outras opções), edite este arquivo.
