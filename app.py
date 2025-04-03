@@ -208,7 +208,8 @@ def produtos():
         data = {  # Coleta os dados do produto
             "descricao": request.form['descricao'],
             "quantidade": int(request.form['quantidade']),  # Converte para número
-            "fornecedor_id": int(request.form['fornecedor_id'])  # Converte para número
+            "fornecedor_id": int(request.form['fornecedor_id']),  # Converte para número
+            "local": request.form['local'] 
         }
         if 'id' in request.form:  # Se tem ID, atualiza
             supabase.table('produto').update(data).eq('id', request.form['id']).execute()
@@ -217,7 +218,7 @@ def produtos():
         return redirect(url_for('produtos'))  # Recarrega a página
     
     # Pega os produtos e fornecedores do banco
-    produtos_data = supabase.table('produto').select('id, descricao, quantidade, fornecedor(nome_fantasia)').order('id', desc=False).execute().data
+    produtos_data = supabase.table('produto').select('id, descricao, quantidade, fornecedor(nome_fantasia), local').order('id', desc=False).execute().data
     fornecedores = supabase.table('fornecedor').select('id, nome_fantasia').execute().data
     return render_template('produtos.html', produtos=produtos_data, fornecedores=fornecedores)  # Mostra a página
 
@@ -241,7 +242,7 @@ def get_produto(id):
     if session['user']['role'] == 'admin':  # Se for admin
         return jsonify({'error': 'Acesso restrito a usuários normais.'}), 403  # Não deixa
     # Pega os dados do produto no banco
-    produto = supabase.table('produto').select('id, descricao, quantidade, fornecedor_id').eq('id', id).execute().data[0]
+    produto = supabase.table('produto').select('id, descricao, quantidade, fornecedor_id, local').eq('id', id).execute().data[0]
     return jsonify(produto)  # Retorna os dados em JSON
 
 # Inicia o aplicativo localmente (removido para o Vercel em produção)

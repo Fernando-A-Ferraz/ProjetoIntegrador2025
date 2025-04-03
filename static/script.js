@@ -213,6 +213,7 @@ function editProduto(id) {
             document.getElementById('edit-descricao').value = data.descricao;
             document.getElementById('edit-quantidade').value = data.quantidade;
             document.getElementById('edit-fornecedor_id').value = data.fornecedor_id;
+            document.getElementById('edit-local').value = data.local;
             // Abre o modal para editar o produto
             openModal('edit-produto-modal');
         })
